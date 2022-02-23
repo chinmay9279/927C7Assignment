@@ -24,7 +24,7 @@ pipeline {
     }
     stage('Remove Unused docker image') {
       steps{
-	    sh "ssh -i /home/ubuntu/927courseAssignment.pem jenkins@10.0.10.13"
+	    sh "ssh -i /home/ubuntu/927courseAssignment.pem ubuntu@10.0.10.13"
         sh "docker rmi $imagename:$BUILD_NUMBER"
         sh "docker rmi $imagename:latest"
 		script {
