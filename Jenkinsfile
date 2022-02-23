@@ -16,7 +16,7 @@ pipeline {
     stage('Build and Push') {
       steps{
         script {
-          docker.withRegistry('https://655621747571.dkr.ecr.us-east-1.amazonaws.com', registryCredential) {
+          docker.withRegistry('https://655621747571.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:927chinmay-aws') {
             dockerImage = docker.build('chinmay927-assignment')
 			dockerImage.push('latest')
           }
