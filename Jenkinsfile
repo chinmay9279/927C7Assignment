@@ -24,11 +24,14 @@ pipeline {
     }
     stage('Remove Unused docker image') {
       steps{
-	sh "ssh -i /home/ubuntu/927courseAssignment.pem ubuntu@10.0.10.13"
-	sh "sudo su -"
-	sh "su - jenkins"
-         sh "docker rmi $imagename:$BUILD_NUMBER"
-          sh "docker rmi $imagename:latest"
+	sh "ssh -i /home/ubuntu/927courseAssignment.pem jenkins@10.0.10.13"
+        sh "docker rmi $imagename:$BUILD_NUMBER"
+        sh "docker rmi $imagename:latest"
+		docker.withRegistry( 'https://655621747571.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:927chinmay-aws' ) {
+			dockerImage.pull('latest')
+			dockerImage = docker.build('chinmay927-assignment')
+			dockerImage.withRun('-p 8080:8080')
+          }
       }
     }
   }
