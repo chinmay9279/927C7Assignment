@@ -25,11 +25,8 @@ pipeline {
     stage('Remove Unused docker image') {
       steps{
 	    sh "ssh -i /home/ubuntu/927courseAssignment.pem ubuntu@10.0.10.13"
-			docker.withRegistry( 'https://655621747571.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:927chinmay-aws' ) {
-			docker.pull()
-			docker.build('chinmay927-assignment')
-			docker.withRun('-p 8080:8080')
-            		}
+		sh "docker pull 655621747571.dkr.ecr.us-east-1.amazonaws.com/chinmay927-assignment:latest"
+		sh "docker run -itd -p 8080:8080 chinmay927-image"
       }
     }
   }
