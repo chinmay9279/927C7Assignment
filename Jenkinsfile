@@ -27,6 +27,8 @@ pipeline {
 	    sh "ssh -i /home/ubuntu/927courseAssignment.pem ubuntu@10.0.10.13"
 	      sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 655621747571.dkr.ecr.us-east-1.amazonaws.com"
 		sh "docker pull 655621747571.dkr.ecr.us-east-1.amazonaws.com/chinmay927-assignment:latest"
+	      	sh "docker images"
+	      	sh "docker build ."
 		sh "docker run -itd -p 8080:8080 chinmay927-image"
       }
     }
