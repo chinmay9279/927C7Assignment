@@ -28,7 +28,7 @@ pipeline {
 		script {
 			docker.withRegistry( 'https://655621747571.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:927chinmay-aws' ) {
 			dockerImage.pull('latest')
-			dockerImage = docker.build('chinmay927-assignment')
+			dockerImage.build('chinmay927-assignment')
 			dockerImage.withRun('-p 8080:8080')
             }
 		}
