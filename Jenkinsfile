@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    imagename = "chinmay927-assignment"
+    imagename = "chinmay927-image"
     registryCredential = '927chinmay-aws'
     dockerImage = ''
   }
@@ -12,29 +12,15 @@ pipeline {
 
       }
     }
-    stage('Building image') {
+    
+    stage('Build and Push') {
       steps{
         script {
-          dockerImage = docker.build imagename
-        }
-      }
-    }
-    stage('Deploy Image') {
-      steps{
-        script {
-          docker.withRegistry( '', registryCredential ) {
-            dockerImage.push("$BUILD_NUMBER")
-             dockerImage.push('latest')
-
+          docker.withRegistry( 'https://655621747571.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:927chinmay-aws' ) {
+            dockerImage = docker.build('chinmay927-assignment')
+			dockerImage.push('latest')
           }
         }
-      }
-    }
-    stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $imagename:$BUILD_NUMBER"
-         sh "docker rmi $imagename:latest"
-
       }
     }
   }
