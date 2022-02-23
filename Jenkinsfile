@@ -25,8 +25,6 @@ pipeline {
     stage('Remove Unused docker image') {
       steps{
 	    sh "ssh -i /home/ubuntu/927courseAssignment.pem ubuntu@10.0.10.13"
-        sh "docker rmi $imagename:$BUILD_NUMBER"
-        sh "docker rmi $imagename:latest"
 		script {
 			docker.withRegistry( 'https://655621747571.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:927chinmay-aws' ) {
 			dockerImage.pull('latest')
