@@ -25,7 +25,7 @@ pipeline {
     stage('Remove Unused docker image') {
       steps{
 	    sh "ssh -i /home/ubuntu/927courseAssignment.pem ubuntu@10.0.10.13"
-	      sh "docker ps -aq \\| xargs docker rm -f"
+	      sh "docker ps -aq \\| xargs docker stop \\| xargs docker rm"
 	      sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 655621747571.dkr.ecr.us-east-1.amazonaws.com"
 		sh "docker pull 655621747571.dkr.ecr.us-east-1.amazonaws.com/chinmay927-assignment:latest"
 	      	sh "docker build ."
